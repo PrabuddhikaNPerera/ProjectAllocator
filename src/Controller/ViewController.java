@@ -1,16 +1,13 @@
 package Controller;
 
 import Model.PreferenceTable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 
-import java.awt.*;
 import java.io.File;
 import java.util.Vector;
 
@@ -73,8 +70,8 @@ public class ViewController {
         PreferenceTable pref = new PreferenceTable();
         Vector<Vector<String>> allData = pref.loadContentFromFile(file);
         for (Vector v: allData) {
-            for (Object s: v){
-                tableView.getColumns().addAll(stdName,preass,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10);
+            for (Object y: v) {
+                tableView.getItems().addAll(v);
             }
         }
     }
