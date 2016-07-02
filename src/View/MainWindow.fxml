@@ -28,20 +28,20 @@
          </graphic>
       </Button>
       <Button layoutX="653.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="30.0" prefWidth="120.0" text="Submit" />
-      <TableView layoutX="23.0" layoutY="73.0" prefHeight="340.0" prefWidth="750.0">
+      <TableView fx:id="tableView" layoutX="23.0" layoutY="73.0" prefHeight="340.0" prefWidth="750.0">
         <columns>
-          <TableColumn prefWidth="105.0" text="Student Name" />
-          <TableColumn prefWidth="46.0" text="PA" />
-            <TableColumn prefWidth="60.0" text="P1" />
-            <TableColumn prefWidth="60.0" text="P2" />
-            <TableColumn prefWidth="60.0" text="P3" />
-            <TableColumn prefWidth="60.0" text="P4" />
-            <TableColumn prefWidth="60.0" text="P5" />
-            <TableColumn prefWidth="60.0" text="P6" />
-            <TableColumn prefWidth="60.0" text="P7" />
-            <TableColumn prefWidth="60.0" text="P8" />
-            <TableColumn prefWidth="60.0" text="P9" />
-            <TableColumn prefWidth="60.0" text="P10" />
+          <TableColumn fx:id="stdName" prefWidth="105.0" text="Student Name" />
+          <TableColumn fx:id="preass" prefWidth="46.0" text="PA" />
+            <TableColumn fx:id="p1" prefWidth="60.0" text="P1" />
+            <TableColumn fx:id="p2" prefWidth="60.0" text="P2" />
+            <TableColumn fx:id="p3" prefWidth="60.0" text="P3" />
+            <TableColumn fx:id="p4" prefWidth="60.0" text="P4" />
+            <TableColumn fx:id="p5" prefWidth="60.0" text="P5" />
+            <TableColumn fx:id="p6" prefWidth="60.0" text="P6" />
+            <TableColumn fx:id="p7" prefWidth="60.0" text="P7" />
+            <TableColumn fx:id="p8" prefWidth="60.0" text="P8" />
+            <TableColumn fx:id="p9" prefWidth="60.0" text="P9" />
+            <TableColumn fx:id="p10" prefWidth="60.0" text="P10" />
         </columns>
       </TableView>
       <Button layoutX="23.0" layoutY="434.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Allocate Projects" />

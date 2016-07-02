@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.PreferenceTable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,11 +12,27 @@ import javafx.stage.Popup;
 
 import java.awt.*;
 import java.io.File;
+import java.util.Vector;
 
 public class ViewController {
 
-    public Button chooseFile;
-    public TextField filePath;
+    @FXML public Button chooseFile;
+    @FXML public TextField filePath;
+    @FXML public TableView tableView;
+    @FXML public TableColumn stdName;
+    @FXML public TableColumn preass;
+    @FXML public TableColumn p1;
+    @FXML public TableColumn p2;
+    @FXML public TableColumn p3;
+    @FXML public TableColumn p4;
+    @FXML public TableColumn p5;
+    @FXML public TableColumn p6;
+    @FXML public TableColumn p7;
+    @FXML public TableColumn p8;
+    @FXML public TableColumn p9;
+    @FXML public TableColumn p10;
+
+
     public File file;
 
     public void getFilePath() {
@@ -38,7 +55,7 @@ public class ViewController {
             System.exit(1);
         } else {
             System.out.println("File Accepted");
-            //Allocation Process
+            loadTable();
         }
 
     }
@@ -49,6 +66,16 @@ public class ViewController {
         } else{
             System.out.println("File is Invalid");
             return false;
+        }
+    }
+
+    public void loadTable(){
+        PreferenceTable pref = new PreferenceTable();
+        Vector<Vector<String>> allData = pref.loadContentFromFile(file);
+        for (Vector v: allData) {
+            for (Object s: v){
+                tableView.getColumns().addAll(stdName,preass,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10);
+            }
         }
     }
 }

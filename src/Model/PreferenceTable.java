@@ -26,7 +26,7 @@ public class PreferenceTable {
      *
      * @param  filename  the path to the file
      */
-    public PreferenceTable(String filename) {
+    public PreferenceTable(File filename) {
         table = loadContentFromFile(filename);
     }
 
@@ -39,7 +39,7 @@ public class PreferenceTable {
      * @param filename the path to the file
      * @return the vector representing the file content
      */
-    private Vector<Vector<String>> loadContentFromFile(String filename) {
+    public Vector<Vector<String>> loadContentFromFile(File filename) {
         Vector<Vector<String>> t = new Vector<Vector<String>>();
         FileInputStream stream = null;
         BufferedReader input;
