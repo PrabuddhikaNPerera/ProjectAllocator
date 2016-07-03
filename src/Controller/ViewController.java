@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class ViewController {
@@ -70,9 +72,13 @@ public class ViewController {
         PreferenceTable pref = new PreferenceTable();
         Vector<Vector<String>> allData = pref.loadContentFromFile(file);
         for (Vector v: allData) {
+            List<String> list = new Vector<String>();
             for (Object y: v) {
-                tableView.getItems().addAll(v);
+                list.add((String) y);
+                System.out.println(y);
             }
+            //tableView.setItems((ObservableList) list);
+            tableView.getItems().addAll();
         }
     }
 }
