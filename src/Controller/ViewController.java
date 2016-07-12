@@ -1,17 +1,20 @@
 package Controller;
 
 import Model.PreferenceTable;
+import Model.StudentEntry;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class ViewController {
 
@@ -68,17 +71,30 @@ public class ViewController {
         }
     }
 
-    public void loadTable(){
-        PreferenceTable pref = new PreferenceTable();
-        Vector<Vector<String>> allData = pref.loadContentFromFile(file);
-        for (Vector v: allData) {
-            List<String> list = new Vector<String>();
-            for (Object y: v) {
-                list.add((String) y);
-                System.out.println(y);
+    public void loadTable() {
+        try {
+            StringTokenizer st;
+            BufferedReader TSVFile = new BufferedReader(new FileReader(file));
+            List<String> dataArray = new ArrayList<String>();
+            String dataRow = TSVFile.readLine(); // Read first line.
+
+            while (dataRow != null) {
+                st = new StringTokenizer(dataRow, "\t");
+                while (st.hasMoreElements()) {
+                    dataArray.add(st.nextElement().toString());
+                }
+                for (String item : dataArray) {
+                    System.out.print(item + "  ");
+                }
+                dataArray.clear();
+                System.out.println(); // Print the data line.
+                dataRow = TSVFile.readLine(); // Read next line of data.
             }
-            //tableView.setItems((ObservableList) list);
-            tableView.getItems().addAll();
-        }
+            // Close the file once all data has been read.
+            TSVFile.close();
+        } catch (Exception e){}
+
     }
 }
+
+
