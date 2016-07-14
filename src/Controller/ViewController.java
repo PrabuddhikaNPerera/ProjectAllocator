@@ -115,16 +115,20 @@ public class ViewController {
         viewAllocations();
     }
 
-    public void emailSettings(){
+    public void emailSettings() throws IOException {
         System.out.println("Email Settings");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/EmailSettings.fxml"));
+        Parent root2 = (Parent) fxmlLoader.load();
+        Stage emailconf = new Stage();
+        emailconf.setTitle("Email Configurations");
+        emailconf.setScene(new Scene(root2));
+        emailconf.show();
     }
 
     public void viewAllocations() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/AllocationWindow.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage allocationwindow = new Stage();
-        //allocationwindow.initModality(Modality.APPLICATION_MODAL);
-        //allocationwindow.initStyle(StageStyle.UNDECORATED);
         allocationwindow.setTitle("Project Allocations");
         allocationwindow.setScene(new Scene(root1));
         allocationwindow.show();
