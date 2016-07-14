@@ -44,8 +44,9 @@
             <TableColumn fx:id="p10" prefWidth="60.0" text="P10" />
         </columns>
       </TableView>
-      <Button layoutX="23.0" layoutY="434.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Allocate Projects" />
+      <Button fx:id="allocateProjects" layoutX="23.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#allocateProjects" prefHeight="40.0" prefWidth="120.0" text="Allocate Projects" />
       <Button layoutX="160.0" layoutY="434.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="View Project Pool" />
-      <Button layoutX="292.0" layoutY="434.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Reset" />
+      <Button fx:id="reset" layoutX="437.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#reset" prefHeight="40.0" prefWidth="120.0" text="Reset" />
+      <Button fx:id="emailSettings" layoutX="298.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#emailSettings" prefHeight="40.0" prefWidth="120.0" text="Email Settings" />
    </children>
 </AnchorPane>

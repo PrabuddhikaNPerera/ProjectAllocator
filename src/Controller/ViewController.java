@@ -2,12 +2,19 @@ package Controller;
 
 import Model.PreferenceTable;
 import Model.StudentEntry;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.*;
@@ -75,7 +82,8 @@ public class ViewController {
         try {
             StringTokenizer st;
             BufferedReader TSVFile = new BufferedReader(new FileReader(file));
-            List<String> dataArray = new ArrayList<String>();
+            //List<String> dataArray = new ArrayList<String>();
+            ObservableList<String> dataArray = FXCollections.observableArrayList();
             String dataRow = TSVFile.readLine(); // Read first line.
 
             while (dataRow != null) {
@@ -85,6 +93,8 @@ public class ViewController {
                 }
                 for (String item : dataArray) {
                     System.out.print(item + "  ");
+                    //tableView.setItems(dataArray);
+                    //tableView.getColumns().addAll(dataArray);
                 }
                 dataArray.clear();
                 System.out.println(); // Print the data line.
@@ -94,6 +104,30 @@ public class ViewController {
             TSVFile.close();
         } catch (Exception e){}
 
+    }
+
+    public void reset(){
+        System.out.println("reset");
+    }
+
+    public void allocateProjects() throws IOException {
+        System.out.println("Allocate Projects");
+        viewAllocations();
+    }
+
+    public void emailSettings(){
+        System.out.println("Email Settings");
+    }
+
+    public void viewAllocations() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/AllocationWindow.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage allocationwindow = new Stage();
+        //allocationwindow.initModality(Modality.APPLICATION_MODAL);
+        //allocationwindow.initStyle(StageStyle.UNDECORATED);
+        allocationwindow.setTitle("Project Allocations");
+        allocationwindow.setScene(new Scene(root1));
+        allocationwindow.show();
     }
 }
 
