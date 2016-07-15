@@ -2,6 +2,8 @@ package Controller;
 
 import Model.PreferenceTable;
 import Model.StudentEntry;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,8 +29,8 @@ public class ViewController {
 
     @FXML public Button chooseFile;
     @FXML public TextField filePath;
-    @FXML public TableView tableView;
-    @FXML public TableColumn stdName;
+    @FXML public TableView<ObservableList<String>> tableView;
+    @FXML public TableColumn<ObservableList,String> stdName;
     @FXML public TableColumn preass;
     @FXML public TableColumn p1;
     @FXML public TableColumn p2;
@@ -43,6 +45,7 @@ public class ViewController {
 
 
     public File file;
+
 
     public void getFilePath() {
         try {
@@ -82,24 +85,98 @@ public class ViewController {
         try {
             StringTokenizer st;
             BufferedReader TSVFile = new BufferedReader(new FileReader(file));
-            //List<String> dataArray = new ArrayList<String>();
+            ObservableList<ObservableList<String>> tablelist = FXCollections.observableArrayList();
             ObservableList<String> dataArray = FXCollections.observableArrayList();
+
             String dataRow = TSVFile.readLine(); // Read first line.
 
             while (dataRow != null) {
                 st = new StringTokenizer(dataRow, "\t");
+                dataArray.clear();
                 while (st.hasMoreElements()) {
                     dataArray.add(st.nextElement().toString());
                 }
-                for (String item : dataArray) {
-                    System.out.print(item + "  ");
-                    //tableView.setItems(dataArray);
-                    //tableView.getColumns().addAll(dataArray);
-                }
-                dataArray.clear();
-                System.out.println(); // Print the data line.
+                tablelist.add(dataArray);
+                System.out.println(dataArray); // Print the data line.
                 dataRow = TSVFile.readLine(); // Read next line of data.
             }
+
+            tableView.setItems(tablelist);
+            try{
+            stdName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(0).toString());
+                }
+            });
+            preass.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(1).toString());
+                }
+            });
+            p1.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(2).toString());
+                }
+            });
+            p2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(3).toString());
+                }
+            });
+            p3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(4).toString());
+                }
+            });
+            p4.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(5).toString());
+                }
+            });
+            p5.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(6).toString());
+                }
+            });
+            p6.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(7).toString());
+                }
+            });
+            p7.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(8).toString());
+                }
+            });
+            p8.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(9).toString());
+                }
+            });
+            p9.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(10).toString());
+                }
+            });
+            p10.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                    return new SimpleStringProperty(param.getValue().get(11).toString());
+                }
+            });
+        } catch (IndexOutOfBoundsException e){}
+
             // Close the file once all data has been read.
             TSVFile.close();
         } catch (Exception e){}
