@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.CandidateAssignment;
 import Model.PreferenceTable;
 import Model.StudentEntry;
 import javafx.beans.property.SimpleStringProperty;
@@ -42,6 +43,10 @@ public class ViewController {
     @FXML public TableColumn p8;
     @FXML public TableColumn p9;
     @FXML public TableColumn p10;
+    @FXML public TableView<ObservableList<String>> AllocationTable;
+    @FXML public TableColumn<ObservableList,String> stname;
+    @FXML public TableColumn project;
+    @FXML public Label TD;
 
 
     public File file;
@@ -216,6 +221,32 @@ public class ViewController {
         allocationwindow.setTitle("Project Allocations");
         allocationwindow.setScene(new Scene(root1));
         allocationwindow.show();
+
+        ObservableList<ObservableList<String>> allocation = FXCollections.observableArrayList();
+        PreferenceTable p = new PreferenceTable(file);
+
+        for (StudentEntry student : p.getAllStudentEntries()) {
+            ObservableList<String> nameProject = FXCollections.observableArrayList();
+            CandidateAssignment c1 = new CandidateAssignment(student);
+            nameProject.add(student.getStudentName());
+            nameProject.add(c1.getPreference());
+            allocation.add(nameProject);
+        }
+
+        System.out.println(allocation);
+        AllocationTable.setItems(allocation);
+//        try{
+//        stname.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+//            @Override
+//            public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+//                return new SimpleStringProperty(param.getValue().get(0).toString());
+//            }
+//        });
+//        } catch (IndexOutOfBoundsException e){
+//            e.getMessage();
+//
+//        }
+        TD.setText("do");
     }
 }
 
