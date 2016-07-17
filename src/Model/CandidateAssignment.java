@@ -1,7 +1,7 @@
 package Model;
 
 /**
- * Created by Hyperex on 7/2/2016.
+ * Created by ppnperera on 7/2/2016.
  */
 public class CandidateAssignment {
 

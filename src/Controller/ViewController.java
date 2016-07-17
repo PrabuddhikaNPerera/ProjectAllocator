@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.CandidateAssignment;
+import Model.MailServer;
 import Model.PreferenceTable;
 import Model.StudentEntry;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
+import javax.mail.Session;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -247,6 +249,25 @@ public class ViewController {
 //
 //        }
         TD.setText("do");
+    }
+
+    public void email(){
+//        String to = args[0];
+//        String[] tos = to.split(";");
+//
+//        String from = args[1];
+//        String subject = args[2];
+//        String body = args[3];
+//        String status = args[4].trim();
+//        String authUsername = args[5];
+//        String AuthPassword = args[6];
+//        String domain = args[7];
+//        String port = args[8];
+//
+//
+//        Session session = MailServer.setSMTPConfig(authUsername, AuthPassword, domain, port);
+//
+//        MailServer.sendMail(tos, from, subject, body, status, session);
     }
 }
 
