@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ViewController">
    <children>
       <ListView fx:id="listView" layoutX="3.0" layoutY="44.0" prefHeight="355.0" prefWidth="363.0" />
       <Label layoutX="116.0" layoutY="14.0" text="Available Project List">
@@ -15,6 +14,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="close" layoutX="9.0" layoutY="404.0" mnemonicParsing="false" text="Close" />
+      <Button fx:id="close" layoutX="9.0" layoutY="404.0" mnemonicParsing="false" onMouseClicked="#close" text="Close" />
    </children>
 </AnchorPane>

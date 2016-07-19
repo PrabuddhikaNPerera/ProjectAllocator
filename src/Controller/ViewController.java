@@ -19,10 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.stage.*;
 import javafx.util.Callback;
 
 import javax.mail.Session;
@@ -53,6 +50,13 @@ public class ViewController {
     @FXML public TableColumn<ObservableList,String> stname;
     @FXML public TableColumn project;
     @FXML public Label TD;
+    @FXML public Button projectPool;
+    @FXML public Button close;
+    @FXML public Window projectList;
+    //Email settings window
+    @FXML public TextField smtpserver;
+    @FXML public TextField emailTo;
+    @FXML public TextField emailFrom;
 
 
     public File file;
@@ -215,7 +219,7 @@ public class ViewController {
     public void emailSettings() throws IOException {
         System.out.println("Email Settings");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/EmailSettings.fxml"));
-        Parent root2 = (Parent) fxmlLoader.load();
+        Parent root2 = fxmlLoader.load();
         Stage emailconf = new Stage();
         emailconf.setTitle("Email Configurations");
         emailconf.setScene(new Scene(root2));
@@ -225,7 +229,7 @@ public class ViewController {
     public void viewAllocations() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/AllocationWindow.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root1 = fxmlLoader.load();
         Stage allocationwindow = new Stage();
         allocationwindow.setTitle("Project Allocations");
         allocationwindow.setScene(new Scene(root1));
@@ -244,46 +248,50 @@ public class ViewController {
 
         System.out.println(allocation);
         AllocationTable.setItems(allocation);
-//        try{
-//        stname.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
-//            @Override
-//            public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
-//                return new SimpleStringProperty(param.getValue().get(0).toString());
-//            }
-//        });
-//        } catch (IndexOutOfBoundsException e){
-//            e.getMessage();
-//
-//        }
+        try{
+        stname.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                return new SimpleStringProperty(param.getValue().get(0).toString());
+            }
+        });
+        } catch (IndexOutOfBoundsException e){
+            e.getMessage();
+
+        }
         TD.setText("do");
     }
 
     public void email(){
-//        String to = args[0];
-//        String[] tos = to.split(";");
-//
-//        String from = args[1];
-//        String subject = args[2];
-//        String body = args[3];
-//        String status = args[4].trim();
-//        String authUsername = args[5];
-//        String AuthPassword = args[6];
-//        String domain = args[7];
-//        String port = args[8];
-//
-//
-//        Session session = MailServer.setSMTPConfig(authUsername, AuthPassword, domain, port);
-//
-//        MailServer.sendMail(tos, from, subject, body, status, session);
+        String to = emailTo.toString();
+        String[] tos = to.split(";");
+
+        String from = emailFrom.toString();
+        String subject = "Project Allocation Data";
+        String body = "Allocation Results";
+        String authUsername = "";
+        String AuthPassword = "";
+        String domain = "";
+        String port = "";
+
+
+        Session session = MailServer.setSMTPConfig(authUsername, AuthPassword, domain, port);
+
+        MailServer.sendMail(tos, from, subject, body, session);
     }
 
     public void viewProjectPool() throws IOException {
-//        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("../View/projectPool.fxml"));
-//        Parent root2 = (Parent) fxmlLoader2.load();
-//        Stage projectList = new Stage();
-//        projectList.setTitle("Project Allocations");
-//        projectList.setScene(new Scene(root2));
-//        projectList.show();
+        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("../View/projectPool.fxml"));
+        Parent root2 = fxmlLoader2.load();
+        Stage projectList = new Stage();
+        projectList.initModality(Modality.WINDOW_MODAL);
+        projectList.setTitle("Project Allocations");
+        projectList.setScene(new Scene(root2));
+        projectList.show();
+    }
+
+    public void close(){
+
     }
 }
 

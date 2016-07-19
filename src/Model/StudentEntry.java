@@ -42,10 +42,7 @@ public class StudentEntry {
     }
 
     public boolean hasPreassignedProject() {
-        if(hasProjectPreassigned && projectAssigned != null) {
-            return true;
-        }
-        return false;
+        return hasProjectPreassigned && projectAssigned != null;
     }
 
     public int getNumberOfStatedPreferences() {

@@ -3,19 +3,14 @@ package Model;
 /**
  * Created by ppnperera on 7/16/2016.
  */
-import org.rythmengine.RythmEngine;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.io.File;
 import java.util.Properties;
 
 public class MailServer {
 
-    public static void sendMail(String[] to, String from, String subject, String body, String status, Session session){
+    public static void sendMail(String[] to, String from, String subject, String body, Session session){
 
         try {
             Message message = new MimeMessage(session);
@@ -33,67 +28,10 @@ public class MailServer {
             }
 
             message.setSubject(subject);
-
-            RythmEngine rythmEngine = new RythmEngine();
-            File template = new File(new File("./config"), "content.html");
-            if(template.exists()) {
-                String bodyContent = rythmEngine.render(template, body);
-                messageBodyPart.setText(bodyContent,"UTF-8", "html");
-                content.addBodyPart(messageBodyPart);
-            }else{
-                System.out.println("Template File Not Found");
-            }
-
-            DataSource bannerTop = new FileDataSource(new File(new File("./config/images"), "email-banner.png"));
-
             messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setDataHandler(new DataHandler(bannerTop));
-            messageBodyPart.setHeader("Content-ID", "<topbanner>");
             content.addBodyPart(messageBodyPart);
-
-//            DataSource bannerFooter = new FileDataSource(String.valueOf(this.getClass().getResource("/com/virtusa/tempo/server/ui/views/images/icons/other/email-footer.png").getFile()));
-            DataSource bannerFooter = new FileDataSource(new File(new File("./config/images"), "email-footer.png"));
-
-            messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setDataHandler(new DataHandler(bannerFooter));
-            messageBodyPart.setHeader("Content-ID", "<footerbanner>");
-            content.addBodyPart(messageBodyPart);
-
-            if(status.equals("FAIL")){
-//                DataSource statusSuccess = new FileDataSource(String.valueOf(this.getClass().getResource("/com/virtusa/tempo/server/ui/views/images/icons/16/success.png").getFile()));
-                DataSource statusFail = new FileDataSource(new File(new File("./config/images"), "fail.png"));
-
-                messageBodyPart = new MimeBodyPart();
-                messageBodyPart.setDataHandler(new DataHandler(statusFail));
-                messageBodyPart.setHeader("Content-ID", "<status>");
-                content.addBodyPart(messageBodyPart);
-            }else if(status.equals("SUCCESS")){
-                DataSource statusSuccess = new FileDataSource(new File(new File("./config/images"), "success.png"));
-
-                messageBodyPart = new MimeBodyPart();
-                messageBodyPart.setDataHandler(new DataHandler(statusSuccess));
-                messageBodyPart.setHeader("Content-ID", "<status>");
-                content.addBodyPart(messageBodyPart);
-            }else if(status.equals("WARNING")){
-                DataSource statusWarning = new FileDataSource(new File(new File("./config/images"), "warning.png"));
-
-                messageBodyPart = new MimeBodyPart();
-                messageBodyPart.setDataHandler(new DataHandler(statusWarning));
-                messageBodyPart.setHeader("Content-ID", "<status>");
-                content.addBodyPart(messageBodyPart);
-            }else {
-                DataSource statusInfo = new FileDataSource(new File(new File("./config/images"), "info.png"));
-
-                messageBodyPart = new MimeBodyPart();
-                messageBodyPart.setDataHandler(new DataHandler(statusInfo));
-                messageBodyPart.setHeader("Content-ID", "<status>");
-                content.addBodyPart(messageBodyPart);
-            }
-
             message.setContent(content);
-
             Transport.send(message);
-
             System.out.println("Notification Mail Sent");
 
         } catch( javax.mail.SendFailedException  mx) {
