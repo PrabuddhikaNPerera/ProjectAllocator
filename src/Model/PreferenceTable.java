@@ -6,9 +6,6 @@ import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-/**
- * Created by Hyperex on 7/2/2016.
- */
 public class PreferenceTable {
     private Vector<Vector<String>> table;
     private Hashtable<String, StudentEntry> studentLookup = new Hashtable<String, StudentEntry>();

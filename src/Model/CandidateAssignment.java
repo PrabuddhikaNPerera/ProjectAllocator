@@ -1,8 +1,5 @@
 package Model;
 
-/**
- * Created by ppnperera on 7/2/2016.
- */
 public class CandidateAssignment {
 
     private StudentEntry student;

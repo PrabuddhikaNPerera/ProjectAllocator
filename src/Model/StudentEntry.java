@@ -2,9 +2,6 @@ package Model;
 
 import java.util.Vector;
 
-/**
- * Created by Hyperex on 7/2/2016.
- */
 public class StudentEntry {
 
     private String name;

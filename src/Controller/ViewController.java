@@ -1,5 +1,9 @@
 package Controller;
 
+/**
+ * Created by ppnperera on 7/2/2016.
+ */
+
 import Model.CandidateAssignment;
 import Model.MailServer;
 import Model.PreferenceTable;
@@ -198,7 +202,9 @@ public class ViewController {
     }
 
     public void reset(){
-        System.out.println("reset");
+        file = null;
+        filePath.clear();
+        tableView.setItems(null);
     }
 
     public void allocateProjects() throws IOException {
@@ -217,6 +223,7 @@ public class ViewController {
     }
 
     public void viewAllocations() throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/AllocationWindow.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage allocationwindow = new Stage();
@@ -268,6 +275,15 @@ public class ViewController {
 //        Session session = MailServer.setSMTPConfig(authUsername, AuthPassword, domain, port);
 //
 //        MailServer.sendMail(tos, from, subject, body, status, session);
+    }
+
+    public void viewProjectPool() throws IOException {
+//        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("../View/projectPool.fxml"));
+//        Parent root2 = (Parent) fxmlLoader2.load();
+//        Stage projectList = new Stage();
+//        projectList.setTitle("Project Allocations");
+//        projectList.setScene(new Scene(root2));
+//        projectList.show();
     }
 }
 

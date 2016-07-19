@@ -4,9 +4,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
-/**
- * Created by Hyperex on 7/2/2016.
- */
 public class CandidateSolution {
     private Hashtable<String, CandidateAssignment> table;
     private final int PENALTY = 1000;
