@@ -52,7 +52,7 @@ public class ViewController {
     @FXML public Label TD;
     @FXML public Button projectPool;
     @FXML public Button close;
-    @FXML public Window projectList;
+    @FXML public CheckBox emailreport;
     //Email settings window
     @FXML public TextField smtpserver;
     @FXML public TextField emailTo;
@@ -307,6 +307,10 @@ public class ViewController {
 //        }
         System.out.println("Total Disapoints is :" + TotalDisapoints);
         //TD.setText(TotalDisapoints.toString());
+
+        if (emailreport.isSelected()){
+            email();
+        }
     }
 
     public void email(){
@@ -316,10 +320,10 @@ public class ViewController {
         String from = emailFrom.toString();
         String subject = "Project Allocation Data";
         String body = "Allocation Results";
-        String authUsername = "";
-        String AuthPassword = "";
-        String domain = "";
-        String port = "";
+        String authUsername = "test@gmail.com";
+        String AuthPassword = "abc123@@@";
+        String domain = "smtp.google.com";
+        String port = "465";
 
 
         Session session = MailServer.setSMTPConfig(authUsername, AuthPassword, domain, port);
