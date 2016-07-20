@@ -1,5 +1,6 @@
 package Controller;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -13,7 +14,9 @@ public class projectPoolViewController {
     public Button close;
     public ListView listView;
 
-    public void show(){
+    public void show(ObservableList<String> lefts){
+        listView.setItems(lefts);
+
 
     }
 

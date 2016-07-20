@@ -338,6 +338,9 @@ public class mainViewController {
         projectList.setTitle("Project Allocations");
         projectList.setScene(new Scene(root2));
         projectList.show();
+        final ObservableList<String> lefts = FXCollections.observableArrayList("A","B","C");
+        projectPoolViewController pvc = new projectPoolViewController();
+        pvc.show(lefts);
     }
 
 }
