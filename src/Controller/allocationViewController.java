@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 /**
- * Created by PPNPERERA on 7/20/2016.
+ * Created by PPNPERERA on 7/16/2016.
  */
 public class allocationViewController {
     @FXML Button allocationsave;
