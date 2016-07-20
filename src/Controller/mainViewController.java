@@ -61,7 +61,6 @@ public class mainViewController {
 
     public File file;
 
-
     public void getFilePath() {
         try {
             FileChooser fileChooser = new FileChooser();
@@ -238,7 +237,7 @@ public class mainViewController {
         ObservableList<ObservableList<String>> allocation = FXCollections.observableArrayList();
         PreferenceTable p = new PreferenceTable(file);
 
-//        Supun
+//       Coded by Fiction
 //        get all the projects without duplicates
         ArrayList ProjectList = new ArrayList();
         ArrayList StudentList = new ArrayList();
