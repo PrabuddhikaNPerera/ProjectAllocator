@@ -29,7 +29,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class ViewController {
+public class mainViewController {
 
     @FXML public Button chooseFile;
     @FXML public TextField filePath;
@@ -341,9 +341,6 @@ public class ViewController {
         projectList.show();
     }
 
-    public void close(){
-
-    }
 }
 
 
