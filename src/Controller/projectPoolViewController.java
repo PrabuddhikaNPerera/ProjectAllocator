@@ -12,12 +12,11 @@ import javafx.stage.Window;
 public class projectPoolViewController {
 
     public Button close;
-    public ListView listView;
+    public ListView<String> listView;
 
     public void show(ObservableList<String> lefts){
-        listView.setItems(lefts);
-
-
+        System.out.println(lefts);
+        //listView.setItems(lefts);
     }
 
     public void close(){
