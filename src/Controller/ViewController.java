@@ -1,6 +1,11 @@
 package Controller;
 
+/**
+ * Created by ppnperera on 7/2/2016.
+ */
+
 import Model.CandidateAssignment;
+import Model.MailServer;
 import Model.PreferenceTable;
 import Model.StudentEntry;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,13 +19,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.stage.*;
 import javafx.util.Callback;
 
-
+import javax.mail.Session;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -47,11 +49,17 @@ public class ViewController {
     @FXML public TableView<ObservableList<String>> AllocationTable;
     @FXML public TableColumn<ObservableList,String> stname;
     @FXML public TableColumn project;
-    @FXML private Label TD;
+    @FXML public Label TD;
+    @FXML public Button projectPool;
+    @FXML public Button close;
+    @FXML public Window projectList;
+    //Email settings window
+    @FXML public TextField smtpserver;
+    @FXML public TextField emailTo;
+    @FXML public TextField emailFrom;
 
 
-    public File file = new File("C:/Users/Fiction/Desktop/e.tsv");
-      
+    public File file;
 
 
     public void getFilePath() {
@@ -104,7 +112,7 @@ public class ViewController {
                 }
                 tablelist.add(dataArray);
 
-                //System.out.println(dataArray); // Print the data line.
+                System.out.println(dataArray); // Print the data line.
                 dataRow = TSVFile.readLine(); // Read next line of data.
             }
 
@@ -198,7 +206,9 @@ public class ViewController {
     }
 
     public void reset(){
-        System.out.println("reset");
+        file = null;
+        filePath.clear();
+        tableView.setItems(null);
     }
 
     public void allocateProjects() throws IOException {
@@ -208,8 +218,8 @@ public class ViewController {
 
     public void emailSettings() throws IOException {
         System.out.println("Email Settings");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EmailSettings.fxml"));
-        Parent root2 = (Parent) fxmlLoader.load();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/EmailSettings.fxml"));
+        Parent root2 = fxmlLoader.load();
         Stage emailconf = new Stage();
         emailconf.setTitle("Email Configurations");
         emailconf.setScene(new Scene(root2));
@@ -217,8 +227,9 @@ public class ViewController {
     }
 
     public void viewAllocations() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AllocationWindow.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/AllocationWindow.fxml"));
+        Parent root1 = fxmlLoader.load();
         Stage allocationwindow = new Stage();
         allocationwindow.setTitle("Project Allocations");
         allocationwindow.setScene(new Scene(root1));
@@ -226,79 +237,62 @@ public class ViewController {
 
         ObservableList<ObservableList<String>> allocation = FXCollections.observableArrayList();
         PreferenceTable p = new PreferenceTable(file);
-        
-        
+
 //        Supun
-//        get all the projects without duplicates 
+//        get all the projects without duplicates
         ArrayList ProjectList = new ArrayList();
         ArrayList StudentList = new ArrayList();
         ArrayList StudentListPreArange = new ArrayList();
-         
-         
+
         int[][][] ProjectAsinList =  new int [51][10][2];
 
         Genetic gn = new Genetic();
         int studentIndex = 0;
-        
-        
+
 //      Get project list
         for (StudentEntry student : p.getAllStudentEntries()) {
- //            loop all the project that current student has
+            //            loop all the project that current student has
             int numProjects = student.getOrderedPreferences().size();//get how many project has current student
             for(int sprjt = 0; numProjects>sprjt; sprjt++){
-                               
+
                 if(!gn.isInArray(ProjectList, student.getOrderedPreferences().get(sprjt)))//remove duplicates
                     ProjectList.add(student.getOrderedPreferences().get(sprjt));
-               
-            }       
+            }
         }
         for (StudentEntry student : p.getAllStudentEntries()) {
-            
+
             ObservableList<String> nameProject = FXCollections.observableArrayList();
             CandidateAssignment c1 = new CandidateAssignment(student);
             nameProject.add(student.getStudentName());
             nameProject.add(c1.getPreference());
             allocation.add(nameProject);
-            
+
 //            set student list
             StudentList.add(studentIndex,student.getStudentName());
             StudentListPreArange.add(studentIndex, student.hasPreassignedProject());//set pr arrage list
- 
-            
-            
 
-            
 //            set every student project
             int numProjects = student.getOrderedPreferences().size();//get how many project has current student
-            
-           // System.out.print(gn.getStudentNameByID(StudentList, studentIndex));
+
+            // System.out.print(gn.getStudentNameByID(StudentList, studentIndex));
             //System.out.println(numProjects);
-            
-            
+
             for(int projectOrder = 0; 10>projectOrder; projectOrder++){
-                
+
                 ProjectAsinList[studentIndex][projectOrder][0] = projectOrder;
-                
+
                 if(numProjects<=projectOrder)
                     ProjectAsinList[studentIndex][projectOrder][1] = -1;
                 else
                     ProjectAsinList[studentIndex][projectOrder][1] = gn.getProjectIndex(ProjectList, student.getOrderedPreferences().get(projectOrder));
-
             }
             //System.out.println(ProjectAsinList[studentIndex][9][1]);
             //System.out.println();
-            
             studentIndex++;
         }
-        
-        
-        
-        
-         Float TotalDisapoints = gn.getTotalDisapointments( ProjectList,  StudentList ,  StudentListPreArange, ProjectAsinList);
-        
-        
 
-        
+        Float TotalDisapoints = gn.getTotalDisapointments( ProjectList,  StudentList ,  StudentListPreArange, ProjectAsinList);
+
         //AllocationTable.setItems(allocation);
 //        try{
 //        stname.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
@@ -311,27 +305,41 @@ public class ViewController {
 //            e.getMessage();
 //
 //        }
-         
         System.out.println("Total Disapoints is :" + TotalDisapoints);
         //TD.setText(TotalDisapoints.toString());
     }
 
     public void email(){
-//        String to = args[0];
-//        String[] tos = to.split(";");
-//
-//        String from = args[1];
-//        String subject = args[2];
-//        String body = args[3];
-//        String status = args[4].trim();
-//        String authUsername = args[5];
-//        String AuthPassword = args[6];
-//        String domain = args[7];
-//        String port = args[8];
-//
-//
-//        Session session = MailServer.setSMTPConfig(authUsername, AuthPassword, domain, port);
-//
-//        MailServer.sendMail(tos, from, subject, body, status, session);
+        String to = emailTo.toString();
+        String[] tos = to.split(";");
+
+        String from = emailFrom.toString();
+        String subject = "Project Allocation Data";
+        String body = "Allocation Results";
+        String authUsername = "";
+        String AuthPassword = "";
+        String domain = "";
+        String port = "";
+
+
+        Session session = MailServer.setSMTPConfig(authUsername, AuthPassword, domain, port);
+
+        MailServer.sendMail(tos, from, subject, body, session);
+    }
+
+    public void viewProjectPool() throws IOException {
+        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("../View/projectPool.fxml"));
+        Parent root2 = fxmlLoader2.load();
+        Stage projectList = new Stage();
+        projectList.initModality(Modality.WINDOW_MODAL);
+        projectList.setTitle("Project Allocations");
+        projectList.setScene(new Scene(root2));
+        projectList.show();
+    }
+
+    public void close(){
+
     }
 }
+
+
